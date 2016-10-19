@@ -58,6 +58,7 @@ window.onmousedown = function(event) {
   event.preventDefault();
   reticule.x = event.offsetX;
   reticule.y = event.offsetY;
+  bullets.add(player.position, {x:1, y:0});
   // TODO: Fire bullet in direction of the retciule
 }
 
@@ -89,12 +90,12 @@ window.onkeydown = function(event) {
       event.preventDefault();
       break;
     case "ArrowLeft":
-    case "d":
+    case "a":
       input.left = true;
       event.preventDefault();
       break;
     case "ArrowRight":
-    case "a":
+    case "d":
       input.right = true;
       event.preventDefault();
       break;
@@ -209,6 +210,9 @@ function render(elapsedTime, ctx) {
   ctx.translate(-camera.x, 0);
   ctx.drawImage(backgrounds[0], 0, 0);
   ctx.restore();
+
+  //render bullets
+  bullets.render(time, ctx);
 
   // Render the player
   ctx.save();
